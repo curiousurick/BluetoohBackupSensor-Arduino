@@ -180,7 +180,7 @@ unsigned long current[4] = { 0, 0, 0, 0 };
 boolean interval[4] = {false, false, false, false};//enable or disable interval reporting
 unsigned long sampleIntervals[4] = {DEFAULT_INTERVAL, DEFAULT_INTERVAL, DEFAULT_INTERVAL, DEFAULT_INTERVAL};//sample rates in Hz
 boolean requested[4] = {false, false, false, false};//activates an immediate request for data
-float thresh[4] = {40.0, 80.0, 30, 30};
+float thresh[4] = {10.0, 150, 80.0, 80.0};
 //unsigned long tiempo [4] = {DEFAULT_INTERVAL, DEFAULT_INTERVAL, DEFAULT_INTERVAL, DEFAULT_INTERVAL};
 
 void soundCameBack() {
