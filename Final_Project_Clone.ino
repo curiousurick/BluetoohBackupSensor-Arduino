@@ -368,17 +368,12 @@ void handleCompassSensor() {
         //            Serial.println(data);
         ble.print(data);
     }
-
 }
 
 void combineCommandAndFloat(char command[], float reading, char *buffer) {
-
-
     char floatAsString[9];
     dtostrf(reading, 3, 2, floatAsString);
     sprintf(buffer, "%s%s", command, floatAsString);
-    //    return buffer;
-
 }
 
 boolean reportAtInterval(unsigned long interv, int device) {
@@ -386,14 +381,12 @@ boolean reportAtInterval(unsigned long interv, int device) {
 
     if ((current[device] - prev[device]) >= interv && interval[device]) {
         prev[device] = current[device];
-        //        Serial.print(interval[device]);
         return true;
     }
     return false;
 }
 
 float getFloat(char cString[]) {
-    //while(inChar != '\n') {
     String newString = cString;
     String value = newString.substring(2, newString.length());
     Serial.print("String: ");
@@ -538,6 +531,18 @@ void parseCommandAndDevice(char c[]) {
                     }
             }
             break;
+            case 'T'://toggle a pin
+            switch (c[1]) {
+                case 'A': {//analog pin
+                        
+                        break;
+                    }
+                case 'D': {//digital pin
+                        toggleDigitalPin(c);
+                        break;
+                    }
+                    break;
+            }
     }
 }
 
@@ -552,5 +557,23 @@ void sendAccel(float X, float Y, float Z, char buffer[]) {
     temp += String((int)Z);
     
     temp.toCharArray(buffer, 20);
+}
+
+bool toggleDigitalPin(char* c){
+    String s = c;
+    s = s.substring(2);
+    int pin = (int)s.toInt();
+    
+    if(pin > 53 || pin < 0){
+        return false;
+    }
+    
+    if(digitalRead(pin) == LOW){
+        digitalWrite(pin, HIGH);
+    }
+    else{
+        digitalWrite(pin, LOW);
+    }
+    return true;
 }
 
